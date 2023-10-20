@@ -1,5 +1,5 @@
 public class Hardware extends Produto {
-    public Hardware(int preco){
+    public Hardware(Double preco){
         super(preco);
     }
     

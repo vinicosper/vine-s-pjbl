@@ -1,7 +1,7 @@
 public abstract class Produto {
-    protected int preco;
+    protected Double preco;
 
-    public Produto(int preco){
+    public Produto(Double preco){
         this.preco = preco;
 
     }
