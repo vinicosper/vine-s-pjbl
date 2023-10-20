@@ -1,5 +1,5 @@
 public class Perifericos extends Produto {
-    public Perifericos(int preco){
+    public Perifericos(Double preco){
         super(preco);
     }
     
