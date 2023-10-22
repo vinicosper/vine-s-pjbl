@@ -1,45 +1,36 @@
-public class credito extends MetodoPagamento implements PagAvista{
+public class credito extends MetodoPagamento implements PagAvista {
     public int QntParcela;
     public Double taxa;
-    public credito(Double preco, int QntParcela, Double taxa){
-        super(preco);
+
+    public credito(int QntParcela, Double taxa, Double preco, String numeroCartao) {
+        super(numeroCartao, preco);
         this.QntParcela = QntParcela;
         this.taxa = taxa;
     }
-    public void parcelar(Double preco, int QntParcela){
-        if (QntParcela == 2){
-            this.preco = preco / 2;
-            String mensagem = String.format("Sua parcela ficará em %s vezes", toString());
-            System.out.println(mensagem);
-        }else if (QntParcela == 3){          
-        this.preco = preco / 3;
-        String mensagem = String.format("Sua parcela ficará em %s vezes", toString());
-        System.out.println(mensagem);
-        }else if (QntParcela == 4){          
-            this.preco = preco / 4;
-            String mensagem = String.format("Sua parcela ficará em %s vezes", toString());
-            System.out.println(mensagem);
-            }else if (QntParcela == 5){          
-                this.preco = preco / 5;
-                String mensagem = String.format("Sua parcela ficará em %s vezes", toString());
-                System.out.println(mensagem);
-                }else if (QntParcela == 6){          
-                    this.preco = preco / 6;
-                    String mensagem = String.format("Sua parcela ficará em %s vezes", toString());
-                    System.out.println(mensagem);
-                    }else {          
-                        String mensagem = String.format("Opçao invalida, por favor tente novamente!");
-                        System.out.println(mensagem);
-                        }
 
-    }   
-       public void processarPagAvista(double preco, double taxa){
-        taxa = preco * 0.90;
-        this.preco = preco + taxa;
-        System.out.println("Processando pagamento à vista com a taxa do credito de R$" + preco);
+    public void parcelar(Double preco, int QntParcela) {
+        if (QntParcela >= 2 && QntParcela <= 6) {
+            this.preco = preco / QntParcela;
+            String mensagem = String.format("Sua compra será parcelada em %d vezes de R$%.2f cada.", QntParcela,
+                    this.preco);
+            System.out.println(mensagem);
+        } else {
+            System.out.println("Opção de pagamento inválida. Por favor, tente novamente.");
+        }
+    }
 
-        gerarRecibo(preco);
-       }
+    public void processarPagAvista(double preco, double taxa) {
+        if (QntParcela == 1) {
+            taxa = preco * 1.10;
+            this.preco = preco + taxa;
+            System.out.println("Processando pagamento à vista com a taxa do credito em 10% de R$" + preco);
+
+            gerarRecibo(preco);
+        } else {
+            System.out.println("Opção de pagamento inválida. Por favor, tente novamente.");
+        }
+    }
+
     private void gerarRecibo(double preco) {
         System.out.println("Recibo gerado para pagamento de R$" + preco);
     }
