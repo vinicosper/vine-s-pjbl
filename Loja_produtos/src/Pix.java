@@ -6,7 +6,7 @@ public class Pix extends MetodoPagamento implements PagAvista {
 
     public void processarPagAvista(double preco, double taxa) {
 
-        System.out.println("Processando pagamento no pix de R$" + preco);
+        System.out.println("Processando pagamento no pix de tR$" + preco);
 
         gerarRecibo(preco);
     }
