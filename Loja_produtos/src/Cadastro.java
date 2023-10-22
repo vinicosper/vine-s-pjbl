@@ -85,8 +85,8 @@ public class Cadastro extends Cliente {
                 String usuario = usuarioField.getText();
                 String senha = new String(senhaField.getPassword());
 
-                Cadastro cliente = new Cadastro(usuario, senha, nome, cpf);
-                cliente.cadastrar();
+                //Cadastro cliente = new Cadastro(usuario, senha, nome, cpf);
+                //cliente.cadastrar();
             }
         });
 

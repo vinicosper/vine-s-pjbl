@@ -15,6 +15,6 @@ public class ClienteVip extends Cliente {
     private boolean verificarClienteVip() {
         // Implemente a lógica para verificar se o cliente é VIP, por exemplo, verificando no cadastro
         // Suponha que você tenha um campo "vip" em seu cadastro que indique se o cliente é VIP ou não
-        //return this.isVip(); // Suponha que você tenha um método isVip() na classe Cliente
+        return this.isVip(); // Suponha que você tenha um método isVip() na classe Cliente
     }
 }
