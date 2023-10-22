@@ -10,7 +10,7 @@ public abstract class Cliente {
         }
 
         public void comprar(MetodoPagamento metodoPagamento, Double valorCompra) {
-                System.out.println(nome + " está coamprando...");
+                System.out.println(nome + " está comprando...");
 
                 metodoPagamento.setPreco(valorCompra);
                 metodoPagamento.setNumeroCartao(numeroCartao);
