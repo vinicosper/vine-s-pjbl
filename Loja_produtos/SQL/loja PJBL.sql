@@ -1,4 +1,4 @@
-CREATE SCHEMA `loja`;
+
 CREATE TABLE `loja`.`perifericos` (
   `ID_periferico` INT NOT NULL,
   `nome_per` VARCHAR(45) NOT NULL,
@@ -33,3 +33,7 @@ INSERT INTO `loja`.`hardware` (`ID_Hardware`, `Nome_Har`, `marca`, `preco`, `qua
 INSERT INTO `loja`.`hardware` (`ID_Hardware`, `Nome_Har`, `marca`, `preco`, `quantidade`, `descricao`) VALUES ('3', 'memoria Ram Vengeance LPX 32gb', 'Corsair', '129.99', '15', 'Modulos de memoria ddr4 de alta velocidade');
 INSERT INTO `loja`.`hardware` (`ID_Hardware`, `Nome_Har`, `marca`, `preco`, `quantidade`, `descricao`) VALUES ('4', 'Disgo rigido(HD) 2TB', 'SEAGATE', '69.99', '20', 'Disgo rigido de 2Terabytes para armazenamento');
 INSERT INTO `loja`.`hardware` (`ID_Hardware`, `Nome_Har`, `marca`, `preco`, `quantidade`, `descricao`) VALUES ('5', 'SSD 970 EVO 1TB', 'Samsung', '149.99', '25', 'SSD NVME de alta velocidade para melhorar o desempenho');
+ALTER TABLE `loja`.`hardware` 
+CHANGE COLUMN `preco` `preco` DOUBLE NOT NULL;
+ALTER TABLE `loja`.`perifericos` 
+CHANGE COLUMN `preco` `preco` DOUBLE NOT NULL ;
