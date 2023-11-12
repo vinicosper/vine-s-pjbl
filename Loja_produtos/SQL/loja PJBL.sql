@@ -18,7 +18,7 @@ ADD COLUMN `quantidade` INT NOT NULL AFTER `descricao`;
 
 SELECT * FROM loja.perifericos;
 INSERT INTO `loja`.`perifericos` (`ID_periferico`, `nome_per`, `preco`, `marca`, `descricao`, `quantidade`) VALUES ('1', 'Mouse MX Master 3', '79.99', 'Logitech', 'Mouse premium com rastreamento de alta precisão', '15');
-INSERT INTO `loja`.`perifericos` (`ID_periferico`, `nome_per`, `preco`, `marca`, `descricao`, `quantidade`) VALUES ('2', 'Teclado mecanico K95 RGB', '149.9', 'Corsair', 'Teclado mecanico com iluminação RGB personalizavel', '8'
+INSERT INTO `loja`.`perifericos` (`ID_periferico`, `nome_per`, `preco`, `marca`, `descricao`, `quantidade`) VALUES ('2', 'Teclado mecanico K95 RGB', '149.99', 'Corsair', 'Teclado mecanico com iluminação RGB personalizavel', '8'
 );
 INSERT INTO `loja`.`perifericos` (`ID_periferico`, `nome_per`, `preco`, `marca`, `descricao`, `quantidade`) VALUES ('3', 'Monitor UltraSharp u2719d', '349.99', 'Dell', 'Monitor de 27\'\' com resolução 2k e nucleos precisos', '5'
 );
@@ -37,3 +37,33 @@ ALTER TABLE `loja`.`hardware`
 CHANGE COLUMN `preco` `preco` DOUBLE NOT NULL;
 ALTER TABLE `loja`.`perifericos` 
 CHANGE COLUMN `preco` `preco` DOUBLE NOT NULL ;
+
+
+
+-- Adicionando uma nova coluna formatada 'preco_formatado' à tabela 'perifericos'
+ALTER TABLE `loja`.`perifericos`
+ADD COLUMN `preco_formatado` VARCHAR(45);
+
+-- Atualizando a nova coluna 'preco_formatado' com os valores formatados
+UPDATE `loja`.`perifericos`
+SET `preco_formatado` = CONCAT('R$', FORMAT(`preco`, 2));
+
+-- Alterando a coluna 'preco' para o tipo DECIMAL(10, 2)
+ALTER TABLE `loja`.`perifericos`
+CHANGE COLUMN `preco` `preco` DECIMAL(10, 2) NOT NULL;
+
+-- Removendo a coluna 'preco_formatado' se não for mais necessária
+-- ALTER TABLE `loja`.`perifericos`
+-- DROP COLUMN `preco_formatado`;
+
+-- Repetindo o mesmo processo para a tabela 'hardware'
+ALTER TABLE `loja`.`hardware`
+ADD COLUMN `preco_formatado` VARCHAR(45);
+
+UPDATE `loja`.`hardware`
+SET `preco_formatado` = CONCAT('R$', FORMAT(`preco`, 2));
+
+ALTER TABLE `loja`.`hardware`
+CHANGE COLUMN `preco` `preco` DECIMAL(10, 2) NOT NULL;
+
+
