@@ -19,4 +19,7 @@ public abstract class MetodoPagamento {
         System.out.println("Recibo: Pagamento de R$" + preco + " com o cartão **** **** **** "
                 + numeroCartao.substring(numeroCartao.length() - 4));
     }
+
+    public void processarPagamento() {
+    }
 }
