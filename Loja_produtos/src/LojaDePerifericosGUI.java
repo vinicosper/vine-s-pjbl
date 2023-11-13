@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LojaDePerifericosGUI extends JFrame {
-
+    private Map<String, Produto> produtos;
     private Map<String, String> descricaoProdutos;
     private Map<String, Integer> carrinho;
     private Map<String, String> caminhoImagens;
@@ -25,6 +25,18 @@ public class LojaDePerifericosGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         UIManager.put("OptionPane.background", Color.WHITE);
         UIManager.put("Panel.background", Color.WHITE);
+
+        produtos = new HashMap<>();
+        produtos.put("Mouse MX Master 3", new Hardware(79.99));
+        produtos.put("Teclado Mecânico K95 RGB", new Hardware(149.90));
+        produtos.put("Monitor UltraSharp u2719d", new Perifericos(349.99));
+        produtos.put("Fone de Ouvido WH-1000XM$", new Perifericos(299.99));
+        produtos.put("Impressora Laserjet PRO M404dn", new Perifericos(199.99));
+        produtos.put("Processador I9-11900K", new Hardware(499.99));
+        produtos.put("Placa de vídeo GeForce RTX3080", new Hardware(799.99));
+        produtos.put("Memória RAM Vengeance LPX 32GB", new Hardware(129.99));
+        produtos.put("Disco rígido (HD) 2TB", new Hardware(69.99));
+        produtos.put("SSD 970 EVO 1TB", new Hardware(149.99));
 
         descricaoProdutos = new HashMap<>();
         descricaoProdutos.put("Mouse MX Master 3", "Mouse premium com rastreamento de alta precisão");
@@ -199,29 +211,11 @@ public class LojaDePerifericosGUI extends JFrame {
     }
 
     private String obterPrecoProduto(String produto) {
-        switch (produto) {
-            case "Mouse MX Master 3":
-                return "79.99";
-            case "Teclado Mecânico K95 RGB":
-                return "149.90";
-            case "Monitor UltraSharp u2719d":
-                return "349.99";
-            case "Fone de Ouvido WH-1000XM$":
-                return "299.99";
-            case "Impressora Laserjet PRO M404dn":
-                return "199.99";
-            case "Processador I9-11900K":
-                return "499.99";
-            case "Placa de vídeo GeForce RTX3080":
-                return "799.99";
-            case "Memória RAM Vengeance LPX 32GB":
-                return "129.99";
-            case "Disco rígido (HD) 2TB":
-                return "69.99";
-            case "SSD 970 EVO 1TB":
-                return "149.99";
-            default:
-                return "Preço não disponível";
+        Produto item = produtos.get(produto);
+        if (item != null) {
+            return String.format("%.2f", item.getPreco());
+        } else {
+            return "Preço não disponível";
         }
     }
 
