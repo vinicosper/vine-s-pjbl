@@ -4,11 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LojaDePerifericosGUI extends JFrame {
-
+    private Map<String, Produto> produtos;
     private Map<String, String> descricaoProdutos;
     private Map<String, Integer> carrinho;
     private Map<String, String> caminhoImagens;
@@ -19,40 +20,53 @@ public class LojaDePerifericosGUI extends JFrame {
     private DefaultListModel<String> produtosListModel;
     private JList<String> produtosList;
 
+    private Connection connection;
+
     public LojaDePerifericosGUI() {
+        conectarBancoDeDados();
+        inicializarComponentes();
+    }
+
+    private void conectarBancoDeDados() {
+        try {
+            // Utiliza a classe Conexao para obter a conexão com o banco de dados
+            connection = Conexao.getConexao();
+            if (connection == null || connection.isClosed()) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados.");
+                System.exit(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados.");
+            System.exit(1);
+            System.out.println("SQLException: " + e.getMessage());
+        }
+    }
+
+    private void inicializarComponentes() {
         setTitle("Loja de Periféricos");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         UIManager.put("OptionPane.background", Color.WHITE);
         UIManager.put("Panel.background", Color.WHITE);
 
+        produtos = new HashMap<>();
+        produtos.put("Mouse MX Master 3", new Hardware(1, "Mouse MX Master 3", 79.99, 4,
+                "Mouse premium com rastreamento de alta precisão", "Logitech"));
+        produtos.put("Teclado Mecânico K95 RGB", new Hardware(2, "Teclado Mecânico K95 RGB", 149.90, 0, "", ""));
+        // Adicione outros produtos conforme necessário
+
         descricaoProdutos = new HashMap<>();
         descricaoProdutos.put("Mouse MX Master 3", "Mouse premium com rastreamento de alta precisão");
         descricaoProdutos.put("Teclado Mecânico K95 RGB", "Teclado mecânico com iluminação RGB personalizável");
-        descricaoProdutos.put("Monitor UltraSharp u2719d", "Monitor de 27'' com resolução 2k e cores precisas");
-        descricaoProdutos.put("Fone de Ouvido WH-1000XM$",
-                "Fones de ouvido com cancelamento de ruído e qualidade de áudio excepcional");
-        descricaoProdutos.put("Impressora Laserjet PRO M404dn",
-                "Impressora de jato de tinta com tanques de tinta recarregáveis");
-        descricaoProdutos.put("Processador I9-11900K", "Processador de alta performance com 8 núcleos");
-        descricaoProdutos.put("Placa de vídeo GeForce RTX3080", "Placa de vídeo de última geração com ray tracing");
-        descricaoProdutos.put("Memória RAM Vengeance LPX 32GB", "Módulos de memória DDR4 de alta velocidade");
-        descricaoProdutos.put("Disco rígido (HD) 2TB", "Disco rígido de 2 Terabytes para armazenamento");
-        descricaoProdutos.put("SSD 970 EVO 1TB", "SSD NVMe de alta velocidade para melhorar o desempenho");
+        // Adicione outras descrições conforme necessário
 
         carrinho = new HashMap<>();
 
         caminhoImagens = new HashMap<>();
         caminhoImagens.put("Mouse MX Master 3", "mouse.png");
         caminhoImagens.put("Teclado Mecânico K95 RGB", "teclado.jpg");
-        caminhoImagens.put("Monitor UltraSharp u2719d", "monitor.jpg");
-        caminhoImagens.put("Fone de Ouvido WH-1000XM$", "fone.jpg");
-        caminhoImagens.put("Impressora Laserjet PRO M404dn", "impressora.jpeg");
-        caminhoImagens.put("Processador I9-11900K", "processador.jpg");
-        caminhoImagens.put("Placa de vídeo GeForce RTX3080", "placa.jpg");
-        caminhoImagens.put("Memória RAM Vengeance LPX 32GB", "ram.jpg");
-        caminhoImagens.put("Disco rígido (HD) 2TB", "hd.jpeg");
-        caminhoImagens.put("SSD 970 EVO 1TB", "ssd.jpg");
+        // Adicione outros caminhos de imagens conforme necessário
 
         JLabel boasVindasLabel = new JLabel("Bem-vindo à Loja de Periféricos");
         boasVindasLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -92,14 +106,7 @@ public class LojaDePerifericosGUI extends JFrame {
         produtosListModel = new DefaultListModel<>();
         produtosListModel.addElement("Mouse MX Master 3");
         produtosListModel.addElement("Teclado Mecânico K95 RGB");
-        produtosListModel.addElement("Monitor UltraSharp u2719d");
-        produtosListModel.addElement("Fone de Ouvido WH-1000XM$");
-        produtosListModel.addElement("Impressora Laserjet PRO M404dn");
-        produtosListModel.addElement("Processador I9-11900K");
-        produtosListModel.addElement("Placa de vídeo GeForce RTX3080");
-        produtosListModel.addElement("Memória RAM Vengeance LPX 32GB");
-        produtosListModel.addElement("Disco rígido (HD) 2TB");
-        produtosListModel.addElement("SSD 970 EVO 1TB");
+        // Adicione outros produtos conforme necessário
 
         produtosList = new JList<>(produtosListModel);
         produtosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -199,29 +206,11 @@ public class LojaDePerifericosGUI extends JFrame {
     }
 
     private String obterPrecoProduto(String produto) {
-        switch (produto) {
-            case "Mouse MX Master 3":
-                return "79.99";
-            case "Teclado Mecânico K95 RGB":
-                return "149.90";
-            case "Monitor UltraSharp u2719d":
-                return "349.99";
-            case "Fone de Ouvido WH-1000XM$":
-                return "299.99";
-            case "Impressora Laserjet PRO M404dn":
-                return "199.99";
-            case "Processador I9-11900K":
-                return "499.99";
-            case "Placa de vídeo GeForce RTX3080":
-                return "799.99";
-            case "Memória RAM Vengeance LPX 32GB":
-                return "129.99";
-            case "Disco rígido (HD) 2TB":
-                return "69.99";
-            case "SSD 970 EVO 1TB":
-                return "149.99";
-            default:
-                return "Preço não disponível";
+        Produto item = produtos.get(produto);
+        if (item != null) {
+            return String.format("%.2f", item.getPreco());
+        } else {
+            return "Preço não disponível";
         }
     }
 
@@ -229,7 +218,6 @@ public class LojaDePerifericosGUI extends JFrame {
         String caminhoImagem = caminhoImagens.get(produto);
         if (caminhoImagem != null) {
             ImageIcon imagemIcon = new ImageIcon(getClass().getResource(caminhoImagem));
-            // Redimensiona a imagem para 200x200 pixels
             Image imagemRedimensionada = imagemIcon.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
             imagemIcon = new ImageIcon(imagemRedimensionada);
             imagemLabel.setIcon(imagemIcon);
