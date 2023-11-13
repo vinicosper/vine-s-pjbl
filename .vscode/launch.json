@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Conexao",
+            "request": "launch",
+            "mainClass": "Conexao",
+            "projectName": "vine-s-pjbl-1_ccd9fc6c"
+        },
+        {
+            "type": "java",
+            "name": "TesteConexao",
+            "request": "launch",
+            "mainClass": "TesteConexao",
+            "projectName": "vine-s-pjbl-1_ccd9fc6c"
+        },
+        {
+            "type": "java",
+            "name": "LojaDePerifericosGUI",
+            "request": "launch",
+            "mainClass": "LojaDePerifericosGUI",
+            "projectName": "vine-s-pjbl-1_ccd9fc6c"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
