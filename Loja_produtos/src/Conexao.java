@@ -3,24 +3,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexao {
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/loja";
-    private static final String user = "root";
-    private static final String password = "Vinicosper12!";
 
     private static Connection conn;
 
+    /**
+     * @return
+     */
     public static Connection getConexao() {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/loja?user=root&password=PUC@1234";
             if (conn == null || conn.isClosed()) {
-                // Carrega o driver JDBC do MySQL
-                Class.forName("com.mysql.cj.jdbc.Driver");
-
-                // Obtém a conexão com o banco de dados
-                conn = DriverManager.getConnection(url, user, password);
+                conn = DriverManager.getConnection(url);
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return null;
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver JDBC não encontrado: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
         }
         return conn;
     }
@@ -31,7 +30,7 @@ public class Conexao {
                 conn.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao fechar a conexão: " + e.getMessage());
         }
     }
 }

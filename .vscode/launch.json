@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LojaDePerifericosGUI",
+            "request": "launch",
+            "mainClass": "LojaDePerifericosGUI",
+            "projectName": "vine-s-pjbl-2_44f810bf"
+        },
+        {
+            "type": "java",
             "name": "Conexao",
             "request": "launch",
             "mainClass": "Conexao",
